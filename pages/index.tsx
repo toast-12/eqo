@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import dynamic from 'next/dynamic';
-import { EarthquakeData, EEWData, StationIntensityData } from '../types/p2pquake';
+import { EarthquakeData } from '../types/p2pquake';
 
 const Map = dynamic(() => import('../components/Map'), {
   ssr: false,
@@ -46,7 +46,6 @@ const Home = () => {
   const webSocketContext = useWebSocket();
   const earthquakeData = webSocketContext ? webSocketContext.earthquakeData : [];
   const eewData = webSocketContext ? webSocketContext.eewData : null;
-  const simulateEarthquake = webSocketContext ? webSocketContext.simulateEarthquake : () => {};
   const simulateEEW = webSocketContext ? webSocketContext.simulateEEW : () => {};
 
   // Function to transform the raw WebSocket data into the format Sidebar expects
@@ -82,7 +81,7 @@ const Home = () => {
       tsunamiWarning = 'watch';
     }
 
-    const points = (data && 'points' in data && Array.isArray((data as any).points)) ? (data as any).points : [];
+    const points = data && 'points' in data ? data.points : [];
     return { intensity, magnitude, depth, location, tsunamiWarning, recentEarthquakes: [], latitude, longitude, points };
   };
 
@@ -131,8 +130,8 @@ const Home = () => {
   // Update displayed data when latest earthquake data changes, unless a temporary display is active
   useEffect(() => {
     if (!isTemporaryDisplay) {
-      const points = latestEarthquakeData && 'points' in latestEarthquakeData && Array.isArray((latestEarthquakeData as any).points)
-        ? (latestEarthquakeData as any).points
+      const points = latestEarthquakeData && 'points' in latestEarthquakeData
+        ? latestEarthquakeData.points
         : [];
       console.log("Updating displayed data. Points:", points);
       setDisplayedEarthquakeData(transformData(latestEarthquakeData));

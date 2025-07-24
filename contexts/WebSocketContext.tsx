@@ -43,7 +43,7 @@ export const WebSocketProvider = ({ children }: { children: React.ReactNode }) =
         const receivedData: P2PQuakeData = JSON.parse(event.data);
 
         if (receivedData.code === 551) {
-          console.log("Received Earthquake Data (code 551). Checking for points field:", receivedData.earthquake?.points);
+          console.log("Received Earthquake Data (code 551). Checking for points field:", receivedData.points);
           setEarthquakeData(prevData => {
             const twoDaysAgo = new Date();
             twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);

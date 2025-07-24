@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { MapContainer, TileLayer, Marker, useMap, Circle, Tooltip } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, useMap, Tooltip } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css'; // Import Leaflet CSS
 import Cookies from 'js-cookie'; // Import js-cookie
@@ -219,7 +219,7 @@ const Map: React.FC<MapProps> = ({ earthquake, eewData, points = [] }) => {
     return () => {
       isMounted = false;
     };
-  }, [pointsString]);
+  }, [pointsString, setIsLoading]);
 
   const lightMapUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   const lightMapAttribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
