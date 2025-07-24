@@ -44,12 +44,10 @@ const Sidebar: React.FC<SidebarProps> = ({
   onEewClose,
 }) => {
   const { theme, toggleTheme } = useContext(ThemeContext);
-  const [time, setTime] = useState(new Date());
-
-  const [isClient, setIsClient] = useState(false);
+  const [time, setTime] = useState<Date | null>(null);
 
   useEffect(() => {
-    setIsClient(true);
+    setTime(new Date()); // Set initial time on client
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
@@ -127,7 +125,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           </button>
           <span>UTC+9</span>
         </div>
-        {isClient && (
+        {time && (
           <span>
             {time.getFullYear()}/{String(time.getMonth() + 1).padStart(2, '0')}/{String(time.getDate()).padStart(2, '0')} {time.toLocaleTimeString('ja-JP', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
           </span>
