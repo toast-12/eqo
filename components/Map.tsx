@@ -35,7 +35,7 @@ const getMagnitudeIcon = (scale: number) => {
   else iconFileName = '1.png'; // Default or fallback icon
 
   return new L.Icon({
-    iconUrl: `/UI/magnitude/magnitude/${iconFileName}`,
+    iconUrl: `/magnitude/magnitude/${iconFileName}`,
     iconSize: [30, 30],
     iconAnchor: [15, 30],
     popupAnchor: [0, -30],
